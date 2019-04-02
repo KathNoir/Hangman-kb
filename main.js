@@ -71,3 +71,72 @@ function startGame() {
     //clears wrong guesses
     document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
 }
+
+//all comparisions for matches
+
+function checkLetters(letter) {
+   
+    //boolean toggled on or off whether a letter is found
+    var letterInWord = false;
+
+    //checks if letter exists 
+    for ( var i = 0; i < numBlanks; i++) {
+    
+        if (chosenWord[i] === letter) {
+            // toggle true if letter is found
+            letterInWord = true;
+        }
+    }
+
+    if (letterInWord) {
+
+        for (var j = 0; j < numBlanks; j++) {
+
+            if (chosenWord[j] === letter) {
+
+                blanksAndSuccesses[j] = letter;
+
+            }
+        
+        }
+
+        console.log(blanksAndSuccesses);
+
+    }
+    //IF LETTER DOESNT EXIST   
+    else {
+        wrongGuesses.push(letter);
+        numGuesses--;
+
+    }
+}
+
+function roundComplete() {
+
+    console.log(`WinCount: ${winCounter} | LossCount: ${lossCounter} | NumGuesses: ${numGuesses}`);
+
+    //update html through javascript
+    document.getElementById("guesses-left").innerHTML = numGuesses;
+
+    document.getElementById("word-blank").innerHTML = blanksAndSuccesses.join(" ");
+
+    document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+
+    //if you win
+    if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
+        winCounter++;
+        alert("You win!")
+
+        document.getElementById("win-counter").innerHTML = winCounter;
+        startGame();
+    }
+
+    else if (numGuesses === 0) {\
+        lossCounter++;
+        alert("Go home. You lost.")
+        document.getElementById("loss-counter").innerHTML = lossCounter;
+        startGame();
+    }
+
+
+}
