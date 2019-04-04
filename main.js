@@ -37,7 +37,7 @@ function startGame() {
     numGuesses = 9;
     
     //solution is random from word list
-    chosenWord = wordList[Math.floor(math.random() * wordList.length)];
+    chosenWord = wordList[Math.floor(Math.random()*wordList.length)];
 
     // word is made into individual letters
     lettersInChosenWord = chosenWord.split("");
@@ -125,13 +125,16 @@ function roundComplete() {
     //if you win
     if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
         winCounter++;
-        alert("You win!")
+
+        setTimeout(function(){
+            alert("You win!"); }, 3000);
+        
 
         document.getElementById("win-counter").innerHTML = winCounter;
         startGame();
     }
 
-    else if (numGuesses === 0) {\
+    else if (numGuesses === 0) {
         lossCounter++;
         alert("Go home. You lost.")
         document.getElementById("loss-counter").innerHTML = lossCounter;
@@ -140,3 +143,23 @@ function roundComplete() {
 
 
 }
+
+//main process
+//--------------------------------------------
+
+// Start game
+startGame();
+
+//initiate function for keys
+document.onkeyup = function(event) {
+
+    // convert all key clicks to lowercase letters
+    var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+
+    //runs and checks for correctness
+    checkLetters(letterGuessed);
+
+    //round is complete
+    roundComplete();
+
+};
