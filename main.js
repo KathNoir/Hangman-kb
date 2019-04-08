@@ -1,165 +1,213 @@
-//GLOBAL VARIABLES
-//-------------------------------------------
+// GLOBAL VARIABLES (accesible by all funcitons)
+// --------------------------------------------------------------
 
-//aRRAY (WORD OPTIONS lowercase)
-var wordList = ["zelda", "halo", "mario", "pokemon"]
+// Array of Word Options (all lowercase)
+var wordsList = ["bulbasaur","ivysaur","venusaur","charmander","charmeleon","charizard","squirtle","wartortle","blastoise","caterpie","metapod","butterfree","weedle","kakuna","beedrill","pidgey","pidgeotto","pidgeot","rattata","raticate","spearow","fearow","ekans","arbok","pikachu","raichu","sandshrew","sandslash","nidoran","nidorina","nidoqueen","nidoran","nidorino","nidoking","clefairy","clefable","vulpix","ninetales","jigglypuff","wigglytuff","zubat","golbat","oddish","gloom","vileplume","paras","parasect","venonat","venomoth","diglett","dugtrio","meowth","persian","psyduck","golduck","mankey","primeape","growlithe","arcanine","poliwag","poliwhirl","poliwrath","abra","kadabra","alakazam","machop","machoke","machamp","bellsprout","weepinbell","victreebel","tentacool","tentacruel","geodude","graveler","golem","ponyta","rapidash","slowpoke","slowbro","magnemite","magneton","farfetch'd","doduo","dodrio","seel","dewgong","grimer","muk","shellder","cloyster","gastly","haunter","gengar","onix","drowzee","hypno","krabby","kingler","voltorb","electrode","exeggcute","exeggutor","cubone","marowak","hitmonlee","hitmonchan","lickitung","koffing","weezing","rhyhorn","rhydon","chansey","tangela","kangaskhan","horsea","seadra","goldeen","seaking","staryu","starmie","mr. mime","scyther","jynx","electabuzz","magmar","pinsir","tauros","magikarp","gyarados","lapras","ditto","eevee","vaporeon","jolteon","flareon","porygon","omanyte","omastar","kabuto","kabutops","aerodactyl","snorlax","articuno","zapdos","moltres","dratini","dragonair","dragonite","mewtwo","mew"];
 
-//Solution goes here
+
+// Solution will be held here
 var chosenWord = "";
 
-//breaks solution into individual letters
+// This will break the solution into individual 
+// letters to be stored in array
 var lettersInChosenWord = [];
 
-//This will be the number of blanks we show based on the solution
+// This will be the number of blanks we show based on the solution
 var numBlanks = 0;
 
-//holds some blank and some empty letters (ex: z_lda)
+// Holds a mix of blank and solved letters (ex: 'a_ple')
 var blanksAndSuccesses = [];
 
-//holds wrong guesses
+// Holds all of the wrong guesses
 var wrongGuesses = [];
 
-//Game counter
+
+// Game counters
 var winCounter = 0;
 var lossCounter = 0;
-var numGuesses = 0;
+var numGuesses = 9;
 
 
+// FUNCTIONS
+// -------------------------------------------------------------
 
-
-//functions
-//------------------------------------------------------
-
-// startGame() is not being run here; only for future use
+// Note: startGame() is not being run here. It's just being made for
+//       future use
 function startGame() {
 
-    //resets guesses
+    // resets the guesses back to original specified number
     numGuesses = 9;
-    
-    //solution is random from word list
-    chosenWord = wordList[Math.floor(Math.random()*wordList.length)];
 
-    // word is made into individual letters
+    // Solution is chosen randomly from wordList
+    chosenWord = wordsList[Math.floor(Math.random() * wordsList.length)];
+
+    // The word is broken into individual letters
     lettersInChosenWord = chosenWord.split("");
 
-    //number of letters in the word
+    // We count the number of letters in the word
     numBlanks = lettersInChosenWord.length;
 
-    //print the solution in console for testing
+    // We print the solution in console (for testing)
     console.log(chosenWord);
 
-    //CRITICAL LINE - RESETS GUESS AND SUCCESS ARRAY EACH ROUND
+    // CRITICAL LINE - Here we reset the guess and success array at each round
     blanksAndSuccesses = [];
-
-    //CRITICAL LINE - RESETS WRONG GUESSSES EACH ROUND
+    // CRITICAL LINE - Here we reset the wrong guesses from the previous round
     wrongGuesses = [];
 
-    //fill up list with needed number of blanks and is based on num of letter in solution
-    for (var i = 0; 1 < numBlanks; i++) {
+    // Fill up the blanksAndSuccesses list with appropriate number of blanks,
+    // which will be based on the number of letters in the solution
+    for (var i = 0; i < numBlanks; i++){
         blanksAndSuccesses.push("_");
     }
 
-    //print blanks
+    // Print the initial blanks in the console
     console.log(blanksAndSuccesses);
 
-    //reprints the guessesLeft to 9
+    // Reprints the guessesLeft to 9
     document.getElementById("guesses-left").innerHTML = numGuesses;
 
-    //prints blanks at the beginning of the round
+    // Prints the blanks at the beginning of each round in the HTML
     document.getElementById("word-blanks").innerHTML = blanksAndSuccesses.join(" ");
 
-    //clears wrong guesses
+    // Clears the wrong guesses from the previous round
     document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
+ 
 }
 
-//all comparisions for matches
-
+// It's where we will do all of the comparisons for matches
 function checkLetters(letter) {
-   
-    //boolean toggled on or off whether a letter is found
+
+    //This boolean will be toggled based on whether or not a user letter is found in the word
     var letterInWord = false;
 
-    //checks if letter exists 
-    for ( var i = 0; i < numBlanks; i++) {
-    
+    // Check if a letter exists inside the array at all
+    for (var i = 0; i < numBlanks; i++) {
+
         if (chosenWord[i] === letter) {
-            // toggle true if letter is found
+
+            // If the letter exists then toggle this boolean to true. This will be used in the next step
             letterInWord = true;
+
         }
+
     }
 
+    // If the letter exists somewhere in the word, then figure out exactly where (which indices)
     if (letterInWord) {
 
+        // Loop through the word
         for (var j = 0; j < numBlanks; j++) {
 
+            
+
+            // Populate the blanksAndSuccesses with every instance of the letter
             if (chosenWord[j] === letter) {
 
+                // Here we set the specific space in the blanks and letter equal to the letter when there is a match
                 blanksAndSuccesses[j] = letter;
 
+                
+
             }
-        
+
         }
 
+        // Logging for testing
         console.log(blanksAndSuccesses);
 
     }
-    //IF LETTER DOESNT EXIST   
+
+    // If the letter doesn't exist at all...
     else {
+
+        //...then we add the letter to the list of wrong letters, and we subtract one of the guesses
         wrongGuesses.push(letter);
         numGuesses--;
 
     }
 }
 
+// Here we will have all of the code that needs to be run after each guess is made
 function roundComplete() {
 
+    // First, log an initial status update in the console telling us how many wins, losses, and guesses are left
     console.log(`WinCount: ${winCounter} | LossCount: ${lossCounter} | NumGuesses: ${numGuesses}`);
 
-    //update html through javascript
+    // Update the HTML to refelct the new number of guesses. Also update the correct guesses
     document.getElementById("guesses-left").innerHTML = numGuesses;
 
-    document.getElementById("word-blank").innerHTML = blanksAndSuccesses.join(" ");
+    // This will print the wrong guesses onto the page
+    document.getElementById("word-blanks").innerHTML = blanksAndSuccesses.join(" ");
 
+    // This will print the wrong guesses onto the page
     document.getElementById("wrong-guesses").innerHTML = wrongGuesses.join(" ");
 
-    //if you win
+    // If we have gotten all the letters to match the solution...
     if (lettersInChosenWord.toString() === blanksAndSuccesses.toString()) {
-        winCounter++;
-
-        setTimeout(function(){
-            alert("You win!"); }, 3000);
         
+        //...add to the win counter and give the user an alert
+        winCounter++;
+        
+        //-----------
+        var waitTwoSeconds;
+        
+        function winAlert() {
+            alert("You win!");
+        }
 
+        function waitAlert() {
+            waitTwoSeconds = setTimeout(winAlert, 700);
+        }
+
+        function waitStart() {
+            waitTwoSeconds = setTimeout(startGame, 1400)
+        }
+
+        waitAlert();
+
+        // Update the win counter in the HTML and restart the game
         document.getElementById("win-counter").innerHTML = winCounter;
-        startGame();
-    }
+        
+        waitStart();
 
+    } 
+
+    // If we've run out of guesses...
     else if (numGuesses === 0) {
+
+        // Add to the loss counter
         lossCounter++;
-        alert("Go home. You lost.")
+
+        // Give the user an alert
+        alert(`You lose. The name was: ${chosenWord}`);
+
+        // Update the loss counter in the HTML
         document.getElementById("loss-counter").innerHTML = lossCounter;
+
+        // Restart the game
         startGame();
     }
-
 
 }
 
-//main process
-//--------------------------------------------
 
-// Start game
+// MAIN PROCESS (This is the code that controls what is actually run)
+// ---------------------------------------------------------------------------
+
+// Starts the Game
 startGame();
 
-//initiate function for keys
+// Initiate the function for capturing key clicks
 document.onkeyup = function(event) {
 
-    // convert all key clicks to lowercase letters
+    // Converts all key clicks to lowercase letters
     var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
 
-    //runs and checks for correctness
+    // Runs the code to check for correctness
     checkLetters(letterGuessed);
 
-    //round is complete
+    // Runs the code after each round is done
     roundComplete();
 
 };
