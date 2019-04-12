@@ -80,7 +80,7 @@ function checkLetters(letter) {
 
     //This boolean will be toggled based on whether or not a user letter is found in the word
     var letterInWord = false;
-
+    var letterIsWrong = false;
     // Check if a letter exists inside the array at all
     for (var i = 0; i < numBlanks; i++) {
 
@@ -88,7 +88,7 @@ function checkLetters(letter) {
 
             // If the letter exists then toggle this boolean to true. This will be used in the next step
             letterInWord = true;
-
+            letterIsWrong = false;
         }
 
     }
@@ -122,12 +122,13 @@ function checkLetters(letter) {
     else {
 
         //...then we add the letter to the list of wrong letters, and we subtract one of the guesses
+        letterIsWrong = true;
         wrongGuesses.push(letter);
         numGuesses--;
+       
 
     }
 }
-
 // Here we will have all of the code that needs to be run after each guess is made
 function roundComplete() {
 
@@ -157,7 +158,7 @@ function roundComplete() {
         }
 
         function waitAlert() {
-            waitTwoSeconds = setTimeout(winAlert, 700);
+            waitTwoSeconds = setTimeout(winAlert, 500);
         }
 
         function waitStart() {
@@ -211,3 +212,4 @@ document.onkeyup = function(event) {
     roundComplete();
 
 };
+

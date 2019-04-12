@@ -1,6 +1,5 @@
 * {
-    color: ;
-    background-color:;
+    font-family: "Courier-New";
 } 
 
 
@@ -10,7 +9,7 @@
 }
 
 body {
-    background-image: url(https://66.media.tumblr.com/d863e5762c6e6f7ed600573374427594/tumblr_odum43ze3e1r21v4mo1_r1_400.png);
+    background-image: url(https://66.media.tumblr.com/d863e5762c6e6f7ed600573374427594/tumblr_odum43ze3e1r21v4mo1_r1_400.png), url(https://i.pinimg.com/originals/1d/88/39/1d8839ae5de483b4fafa5226b4ccea4c.png);
 }
 
 h1, h2, h3, h4, h5, h6, strong, small {
