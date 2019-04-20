@@ -33,6 +33,7 @@ var numGuesses = 9;
 
 // Note: startGame() is not being run here. It's just being made for
 //       future use
+
 function startGame() {
 
     // resets the guesses back to original specified number
@@ -89,6 +90,7 @@ function checkLetters(letter) {
             // If the letter exists then toggle this boolean to true. This will be used in the next step
             letterInWord = true;
             letterIsWrong = false;
+            
         }
 
     }
