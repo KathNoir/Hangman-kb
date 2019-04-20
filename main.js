@@ -41,7 +41,7 @@ function redirectToMobile() {
     var h = window.innerHeight;
     var w = window.innerWidth;
     
-    if (w <= 480 && h <= 320) {
+    if (w <= 480 && h <= 640) {
         window.location.href = "https://www.youtube.com/watch?v=VBbKCbgMkJE";
         alert("You are currently on the mobile page.")
     }
