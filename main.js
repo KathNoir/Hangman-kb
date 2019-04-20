@@ -41,13 +41,13 @@ function redirectToMobile() {
     var h = window.innerHeight;
     var w = window.innerWidth;
     
-    if (w <= 480 && h <= 640) {
-        window.location.href = "https://www.youtube.com/watch?v=VBbKCbgMkJE";
-        alert("You are currently on the mobile page.")
+    if (w >= 1300 && h >= 700) {
+        1=1;
     }
 
     else {
-        1=1;
+        window.location.href = "https://www.youtube.com/watch?v=VBbKCbgMkJE";
+        alert("You are currently on the mobile page.")
     }
 
 }
